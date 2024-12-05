@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const MessageInput = ({ onSendMessage }) => {
   const [message, setMessage] = useState('');
 
@@ -26,3 +28,5 @@ const MessageInput = ({ onSendMessage }) => {
     </div>
   );
 };
+
+export default MessageInput;
