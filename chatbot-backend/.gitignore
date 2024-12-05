@@ -1,0 +1,46 @@
+# Python-related
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.db
+*.sqlite3
+*.log
+
+# Virtual environment folders
+venv/
+env/
+.venv/
+.env/
+
+# IDE/editor folders (e.g., VS Code, PyCharm)
+.vscode/
+.idea/
+
+# FastAPI-specific
+instance/
+*.sqlite
+
+# Test-related files
+.coverage
+nosetests.xml
+pytest_cache/
+*.cover
+
+# Docker-related (if using Docker)
+*.dockerignore
+Dockerfile
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment variable files
+.env
+*.env
+
+# Pytest configuration files (if using pytest)
+*.pytest_cache
