@@ -2,13 +2,13 @@
 
 ## Frontend (React)
 1. Clone the repository.
-2. Navigate to the `frontend` folder.
+2. Navigate to the `chatbot-frontend` folder.
 3. Run `npm install` to install dependencies.
 4. Run `npm start` to start the frontend.
 
 ## Backend (FastAPI)
 1. Clone the repository.
-2. Navigate to the `backend` folder.
+2. Navigate to the `chatbot-backend` folder.
 3. Create a virtual environment: `python -m venv venv`
 4. Activate the virtual environment.
 5. Run `pip install -r requirements.txt` to install dependencies.
