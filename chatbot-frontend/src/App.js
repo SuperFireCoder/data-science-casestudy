@@ -1,24 +1,23 @@
-import { useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { ChatContext } from './context/ChatContext';
 import ChatWindow from "./components/ChatWindow";
 import MessageInput from "./components/MessageInput";
+import Alert from "./components/Alert";
 import { RefreshIcon } from "@heroicons/react/outline";
 
 function App() {
   const { messages, isHealthy, sendMessage, retry, clearHistory } = useContext(ChatContext);
+  const [showAlert, setShowAlert] = useState(true);
 
   useEffect(() => {
-    const alertShown = localStorage.getItem('alertShown');
-
-    if (!alertShown) {
-      alert('To submit your message, press Enter (Ctrl + Enter) or click the submit button.');
-      localStorage.setItem('alertShown', 'true');
-    }
+    setShowAlert(true);
+    setTimeout(() => setShowAlert(false), 8000);
   }, []);
 
   return (
     <div className="App min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="chat-container w-full max-w-3xl bg-white border rounded-lg shadow-lg overflow-hidden mx-4">
+      {showAlert && <Alert />}
+      <div className="chat-container w-full max-w-3xl bg-white border rounded-lg shadow-lg overflow-hidden mx-4" style={{ fontFamily: 'Arial, sans-serif' }}>
         <ChatWindow messages={messages} />
         <MessageInput onSendMessage={sendMessage} />
         <div className="flex justify-between m-6">
@@ -39,7 +38,7 @@ function App() {
           </div>
           <button
             onClick={clearHistory}
-            className=" bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition duration-200"
+            className=" bg-red-500 text-white px-4 py-2 rounded-full hover:bg-red-600 transition duration-200"
           >
             Clear History
           </button>
