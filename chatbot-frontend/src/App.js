@@ -1,29 +1,9 @@
-import { useState } from "react";
-import ChatWindow from "./ChatWindow";
-import MessageInput from "./MessageInput";
+import ChatWindow from "./components/ChatWindow";
+import MessageInput from "./components/MessageInput";
+import useChat from "./hooks/useChat";
 
 function App() {
-  const [messages, setMessages] = useState([]);
-
-  const sendMessage = async (text) => {
-    const newMessage = { sender: "User", text };
-    setMessages([...messages, newMessage]);
-
-    // Call the backend API to get the bot's response
-    const response = await fetch("http://localhost:8000/api/chat", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ message: text }),
-    });
-
-    const data = await response.json();
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      { sender: "Bot", text: data.response },
-    ]);
-  };
+  const [messages, sendMessage] = useChat();
 
   return (
     <div className="App">
