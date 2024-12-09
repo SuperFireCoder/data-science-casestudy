@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from app.logic import generate_response, update_conversation_state
-from app.state import conversation_state
+from app.state import ConversationState
 from app.models import Message
 import time
 import logging
@@ -10,6 +10,8 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = FastAPI()
+
+conversation_state = ConversationState()
 
 app.add_middleware(
     CORSMiddleware,
@@ -41,7 +43,7 @@ def chat(message: Message):
         
         response = generate_response(user_message)
 
-        conversation_state["last_response"] = response
+        conversation_state.state["last_response"] = response
 
         response_time = time.time() - start_time
         logger.info(f"Response sent: {response} (Time: {response_time:.2f}s)")
