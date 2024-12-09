@@ -6,8 +6,8 @@ function App() {
   const [messages, sendMessage] = useChat();
 
   return (
-    <div className="App">
-      <div className="chat-container max-w-lg mx-auto mt-4 border p-4 rounded-lg shadow-lg">
+    <div className="App min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="chat-container w-full max-w-3xl mt-8 bg-white border rounded-lg shadow-lg overflow-hidden mx-4">
         <ChatWindow messages={messages} />
         <MessageInput onSendMessage={sendMessage} />
       </div>
