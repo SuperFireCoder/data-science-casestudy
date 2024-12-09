@@ -1,11 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
+import { ChatContext } from './context/ChatContext';
 import ChatWindow from "./components/ChatWindow";
 import MessageInput from "./components/MessageInput";
-import useChat from "./hooks/useChat";
 import { RefreshIcon } from "@heroicons/react/outline";
 
 function App() {
-  const { messages, isHealthy, sendMessage, retry } = useChat();
+  const { messages, isHealthy, sendMessage, retry, clearHistory } = useContext(ChatContext);
 
   useEffect(() => {
     const alertShown = localStorage.getItem('alertShown');
@@ -21,19 +21,27 @@ function App() {
       <div className="chat-container w-full max-w-3xl bg-white border rounded-lg shadow-lg overflow-hidden mx-4">
         <ChatWindow messages={messages} />
         <MessageInput onSendMessage={sendMessage} />
-        <div className="flex items-center justify-center mb-2">
-          {isHealthy === null ? (
-            <p className="text-yellow-500">Checking server health...</p>
-          ) : isHealthy === false ? (
-            <p className="text-red-500">Server is not working</p>
-          ) : (
-            <p className="text-green-500">Server is healthy</p>
-          )}
+        <div className="flex justify-between m-6">
+          <div className="flex items-center">
+            {isHealthy === null ? (
+              <p className="text-yellow-500">Checking server health...</p>
+            ) : isHealthy === false ? (
+              <p className="text-red-500">Server is not working</p>
+            ) : (
+              <p className="text-green-500">Server is healthy</p>
+            )}
+            <button
+              onClick={retry}
+              className="ml-2 bg-gray-500 text-white rounded-lg px-2.5 py-2 hover:bg-black transition duration-200"
+            >
+              <RefreshIcon className="h-5 w-5 rotate-90 text-white" />
+            </button>
+          </div>
           <button
-            onClick={retry}
-            className="ml-2 bg-gray-500 text-white rounded-lg px-2.5 py-2 hover:bg-black transition duration-200"
+            onClick={clearHistory}
+            className=" bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition duration-200"
           >
-            <RefreshIcon className="h-5 w-5 rotate-90 text-white" />
+            Clear History
           </button>
         </div>
       </div>
