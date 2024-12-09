@@ -4,24 +4,33 @@ import { PaperAirplaneIcon } from "@heroicons/react/outline";
 const MessageInput = ({ onSendMessage }) => {
   const [message, setMessage] = useState("");
 
-  const handleSendMessage = () => {
+  const sendMessage = () => {
     if (message.trim()) {
       onSendMessage(message);
-      setMessage('');
+      setMessage("");
+    }
+  }
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter" && event.ctrlKey) {
+      event.preventDefault();
+      sendMessage();
     }
   };
 
   return (
     <div className="message-input p-2 flex items-center justify-between rounded-lg border m-4 sm:m-6">
-      <input
-        type="text"
+      <textarea
         value={message}
         onChange={(e) => setMessage(e.target.value)}
-        className="border-none rounded-lg p-3 flex-1 text-gray-800 focus:outline-none"
-        placeholder="Type a message..."
+        onKeyDown={handleKeyDown}
+        className="rounded p-2 resize-none h-16 max-h-48 overflow-auto w-full"
+        placeholder="Type your message..."
+        rows="2"
+        style={{ resize: 'vertical' }}
       />
       <button
-        onClick={handleSendMessage}
+        onClick={() => sendMessage()}
         className="ml-2 bg-gray-500 text-white rounded-lg px-2.5 py-2 hover:bg-black transition duration-200"
       >
         <PaperAirplaneIcon className="h-5 w-5 rotate-90 text-white" />

@@ -6,8 +6,7 @@ const ChatWindow = ({ messages }) => (
         className={`message p-3 my-2 max-w-[80%] rounded-lg shadow-sm ${msg.sender === "User" ? "bg-blue-500 text-white self-end" : "bg-gray-300 text-gray-800 self-start"
           }`}
       >
-        <strong className="text-sm font-semibold">{msg.sender}: </strong>
-        <span>{msg.text}</span>
+        <span className="message-text break-words whitespace-pre-wrap">{msg.text}</span>
       </div>
     ))}
   </div>

@@ -3,15 +3,15 @@ import useHealthCheck from "./useHealthCheck";
 
 const useChat = () => {
   const [messages, setMessages] = useState([]);
-  const { isHealthy } = useHealthCheck();
+  const { isHealthy, retry } = useHealthCheck();
 
   const sendMessage = async (text) => {
     const newMessage = { sender: "User", text };
-    setMessages((prevMessages) => [...prevMessages, newMessage]);
+    setMessages((prevMessages) => [newMessage, ...prevMessages]);
 
     if (!isHealthy) {
       const botMessage = { sender: "Bot", text: "Server is not working. Please try again later." };
-      setMessages((prevMessages) => [...prevMessages, botMessage]);
+      setMessages((prevMessages) => [botMessage, ...prevMessages]);
       return;
     }
 
@@ -27,8 +27,8 @@ const useChat = () => {
       if (response.ok) {
         const data = await response.json();
         setMessages((prevMessages) => [
-          ...prevMessages,
           { sender: "Bot", text: data.response },
+          ...prevMessages,
         ]);
       } else {
         console.error("Error from server:", response.statusText);
@@ -42,6 +42,7 @@ const useChat = () => {
     messages,
     isHealthy,
     sendMessage,
+    retry,
   };
 };
 
