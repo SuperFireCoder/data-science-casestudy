@@ -35,6 +35,14 @@ def generate_response(user_message: str) -> str:
         return random.choices([r[0] for r in responses["how are you"]], [r[1] for r in responses["how are you"]])[0]
     elif re.search(r"(bye|goodbye)", user_message):
         return random.choices([r[0] for r in responses["bye"]], [r[1] for r in responses["bye"]])[0]
+    
+    # 4. Check for weather-related queries:
+    elif re.search(r"(weather|forecast)", user_message):
+        return random.choices([r[0] for r in responses["weather"]], [r[1] for r in responses["weather"]])[0]
+    
+    # 5. Check for jokes:
+    elif re.search(r"(joke)", user_message):
+        return random.choices([r[0] for r in responses["joke"]], [r[1] for r in responses["joke"]])[0]
 
-    # 4. Fallback response:
+    # 6. Fallback response:
     return random.choices([r[0] for r in responses["default"]], [r[1] for r in responses["default"]])[0]

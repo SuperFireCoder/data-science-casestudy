@@ -40,3 +40,23 @@ def test_chat_bye():
     response_data = response.json()
     assert "response" in response_data
     assert response_data["response"] in ["Goodbye! Have a great day!", "See you later! Take care!"]
+
+def test_chat_weather():
+    """
+    Test the /api/chat endpoint with a weather-related message.
+    """
+    response = client.post("/api/chat", json={"message": "weather"})
+    assert response.status_code == 200
+    response_data = response.json()
+    assert "response" in response_data
+    assert response_data["response"] in ["The weather is sunny and warm today.", "It looks like it might rain soon, bring an umbrella!"]
+
+def test_chat_joke():
+    """
+    Test the /api/chat endpoint with a joke request.
+    """
+    response = client.post("/api/chat", json={"message": "joke"})
+    assert response.status_code == 200
+    response_data = response.json()
+    assert "response" in response_data
+    assert response_data["response"] in ["Why don’t skeletons fight each other? They don’t have the guts!", "What do you call fake spaghetti? An impasta!"]

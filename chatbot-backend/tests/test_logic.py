@@ -12,8 +12,14 @@ def test_generate_response_how_are_you():
     """
     Test the generate_response function with a 'how are you' message.
     """
+    # Test different moods to check the behavior
+    conversation_state.state["last_mood"] = 9
     response = generate_response("how are you")
-    assert response in ["I'm just a bot, but I'm doing great!", "I'm functioning perfectly!"]
+    assert response in ["I'm just a bot, but I'm doing great!", "I'm functioning perfectly!", "I'm doing alright, thanks for asking!"]
+
+    conversation_state.state["last_mood"] = 2
+    response = generate_response("how are you")
+    assert response in ["I'm just a bot, but I'm doing great!", "I'm functioning perfectly!", "I'm doing alright, thanks for asking!"]
 
 def test_generate_response_unknown_message():
     """
@@ -27,18 +33,18 @@ def test_update_conversation_state_positive_mood():
     Test the update_conversation_state function with a positive mood.
     """
     update_conversation_state("how are you, I'm feeling great")
-    assert conversation_state["last_mood"] == "positive"
+    assert conversation_state.state["last_mood"] == 6  # Checking that mood has increased from 5 to 6
 
 def test_update_conversation_state_negative_mood():
     """
     Test the update_conversation_state function with a negative mood.
     """
     update_conversation_state("how are you, I'm feeling bad")
-    assert conversation_state["last_mood"] == "negative"
+    assert conversation_state.state["last_mood"] == 4  # Checking that mood has decreased from 5 to 4
 
 def test_update_conversation_state_goodbye():
     """
     Test the update_conversation_state function when a user says goodbye.
     """
     update_conversation_state("bye")
-    assert conversation_state["last_topic"] == "goodbye"
+    assert conversation_state.state["last_topic"] == "goodbye"
